@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  discovery-server:
+    build: ../discovery-server/
+    image: iroofee/discovery-server
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery-server:8761/eureka
+    ports:
+      - "8761:8761"
+    networks:
+      quiz-network:
+
+  quiz-servie:
+    build: ../quiz-service/
+    image: iroofee/quiz-service
+    environment:
+      eureka.client.service-url.defaultZone: http://discovery-server:8761/eureka
+      SPRING_DATASOURCE_URL : jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_PASSWORD : 3026606117
+      SPRING_DATASOURCE_USERNAME : postgres
+    depends_on:
+      - discovery-server
+      - postgres
+    ports:
+      - "8080:8080"
+    networks:
+      quiz-network:
+
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "3026606117"
+    ports:
+      - "5432:5432"
+    networks:
+      quiz-network:
+
+networks:
+  quiz-network:
+    driver: bridge
