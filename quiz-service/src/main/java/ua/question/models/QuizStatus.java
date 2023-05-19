@@ -3,6 +3,6 @@ package ua.question.models;
 /**
  * @author (ozhytary)
  */
-public enum QuestionStatus {
+public enum QuizStatus {
     DRAFT, ON_MODERATION, PUBLISHED, DELETED
 }

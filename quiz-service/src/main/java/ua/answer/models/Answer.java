@@ -18,8 +18,10 @@ public class Answer extends AbstractDbAuditing {
     @Column(name = "answer_id")
     @UuidGenerator
     private String answerId;
+
     @Column(name = "text", nullable = false)
     private String text;
+
     @Column(name = "isCorrect", nullable = false)
     private Boolean correct;
 
