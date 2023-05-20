@@ -47,7 +47,6 @@ public class QuizEndpoint {
                                                  .stream()
                                                  .map(quizMapper::toDto)
                                                  .collect(Collectors.toList());
-
         return new ResponseEntity<>(quizzes, OK);
     }
 
@@ -55,7 +54,6 @@ public class QuizEndpoint {
     public ResponseEntity<QuizDto> findById(final @PathVariable("id") String quizId) {
         final Quiz quiz = quizService.findById(quizId)
                                      .orElseThrow(() -> new QuizNotFoundException(ENTITY_NOT_FOUND_EXCEPTION, quizId));
-
         return new ResponseEntity<>(quizMapper.toDto(quiz), OK);
     }
 }

@@ -1,4 +1,4 @@
-package ua.category.models;
+package ua.category.models.dto;
 
 /**
  * @author (ozhytary)

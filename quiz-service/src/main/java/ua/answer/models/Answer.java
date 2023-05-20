@@ -2,6 +2,7 @@ package ua.answer.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.UuidGenerator;
 import ua.common.audit.AbstractDbAuditing;
 import ua.question.models.Question;
@@ -9,6 +10,7 @@ import ua.question.models.Question;
 /**
  * @author (ozhytary)
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "answers")

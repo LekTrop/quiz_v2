@@ -12,7 +12,7 @@ import java.util.List;
  */
 public record QuizCreationRequest(@NotBlank String name,
                                   @NotBlank String description,
-                                  @NotNull Category category,
+                                  @NotNull String category,
                                   List<QuestionDto> questions
 ) {
 

@@ -6,6 +6,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.util.CollectionUtils;
 import ua.answer.models.mapper.AnswerMapper;
+import ua.common.mapper.HibernateCollectionUtils;
 import ua.common.mapper.MapperConfiguration;
 import ua.question.models.Question;
 import ua.question.models.QuestionDto;
@@ -13,7 +14,7 @@ import ua.question.models.QuestionDto;
 /**
  * @author (ozhytary)
  */
-@Mapper(config = MapperConfiguration.class, uses = AnswerMapper.class)
+@Mapper(config = MapperConfiguration.class, uses = {AnswerMapper.class, HibernateCollectionUtils.class})
 public interface QuestionMapper {
     QuestionDto toDto(final Question question);
 

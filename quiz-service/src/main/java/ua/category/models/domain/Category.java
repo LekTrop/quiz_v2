@@ -2,6 +2,8 @@ package ua.category.models.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Immutable;
 import ua.common.audit.AbstractDbAuditing;
 import ua.quiz.models.domain.Quiz;
 

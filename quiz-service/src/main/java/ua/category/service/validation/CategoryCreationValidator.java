@@ -21,9 +21,11 @@ public class CategoryCreationValidator extends AbstractRequiredFieldsValidator {
     private static final String FIELD_DESCRIPTION = "description";
 
     private Category category;
-    @Lazy
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+
+    public CategoryCreationValidator(@Autowired @Lazy CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     public CategoryCreationValidator category(final Category category) {
         this.category = category;

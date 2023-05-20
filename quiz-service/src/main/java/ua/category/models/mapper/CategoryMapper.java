@@ -1,21 +1,18 @@
 package ua.category.models.mapper;
 
-import org.mapstruct.Condition;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import ua.category.models.CategoryCreationRequest;
+import ua.category.models.dto.CategoryCreationRequest;
 import ua.category.models.domain.Category;
 import ua.category.models.dto.CategoryDto;
-import ua.common.mapper.LazyInitMapper;
+import ua.common.mapper.HibernateCollectionUtils;
 import ua.common.mapper.MapperConfiguration;
-
-import java.util.Collection;
 
 /**
  * @author (ozhytary)
  */
-@Mapper(config = MapperConfiguration.class)
-public interface CategoryMapper extends LazyInitMapper {
+@Mapper(config = MapperConfiguration.class, uses = HibernateCollectionUtils.class)
+public interface CategoryMapper {
     CategoryDto toDto(final Category category);
 
     @Mapping(target = "createdAt", ignore = true)
@@ -47,10 +44,4 @@ public interface CategoryMapper extends LazyInitMapper {
     @Mapping(target = "parentCategory", ignore = true)
     @Mapping(target = "childCategories", ignore = true)
     Category toDomain(final CategoryCreationRequest categoryCreationRequest);
-
-    @Condition
-    @Override
-    default <Category> boolean isNotLazyInit(Collection<Category> collection) {
-        return LazyInitMapper.super.isNotLazyInit(collection);
-    }
 }
