@@ -1,5 +1,7 @@
 package ua.category.models.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -41,6 +43,7 @@ public class Category extends AbstractDbAuditing {
     @JoinColumn(name = "fk_category_id")
     private Category parentCategory;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

@@ -31,6 +31,30 @@ public enum QuizErrorRegister implements ErrorRegister {
     QUESTION_CORRECT_ANSWERS_NOT_EQUALS_WITH_CORRECT_ANSWERS(
             "Question correct answers: [%s] not equals with correct answers: [%s]",
             7
+    ),
+    PATCH_OPERATION_DOES_NOT_SUPPORTED_EXCEPTION(
+            "Patch operation: [%s] does not supported, API support: %s",
+            8
+    ),
+    PATCH_PATH_DOES_NOT_SUPPORTED(
+            "Patch path: [%s] does not supported, API support: %s",
+            9
+    ),
+    JSON_PATCH_CANNOT_BE_APPLIED(
+            "Json patch cannot be applied, message: [%s], patch: [%s]",
+            10
+    ),
+    JSON_PATCH_CANNOT_BE_RESTORED(
+            "Json patch connot be restored, entity: [%s], message: [%s]",
+            11
+    ),
+    JSON_PATCH_OPERATION_NOT_ALLOWED(
+            "Json patch operation: [%s] is not allowed, operations that are allowed: %s",
+            12
+    ),
+    JSON_PATCH_PATH_NOT_ALLOWED(
+            "Json patch path: [%s] is not allowed, path that are allowed: %s",
+            13
     );
 
     private final String message;

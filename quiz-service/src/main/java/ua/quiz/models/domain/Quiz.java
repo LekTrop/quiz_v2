@@ -1,5 +1,7 @@
 package ua.quiz.models.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
@@ -44,6 +46,7 @@ public class Quiz extends AbstractDbAuditing{
     @JoinColumn(name = "fk_category_id", nullable = false)
     private Category category;
 
+    @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToMany(mappedBy = "quiz", orphanRemoval = true, cascade = CascadeType.ALL)

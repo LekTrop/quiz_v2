@@ -1,5 +1,6 @@
 package ua.answer.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,6 +28,7 @@ public class Answer extends AbstractDbAuditing {
     @Column(name = "isCorrect", nullable = false)
     private Boolean correct;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "fk_question_id")
     private Question question;

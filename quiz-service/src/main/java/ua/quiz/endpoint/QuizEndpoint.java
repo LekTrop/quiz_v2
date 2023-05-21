@@ -1,16 +1,18 @@
 package ua.quiz.endpoint;
 
+import com.github.fge.jsonpatch.JsonPatch;
 import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ua.exception.QuizNotFoundException;
-import ua.quiz.models.dto.QuizSearchRequest;
 import ua.quiz.models.domain.Quiz;
 import ua.quiz.models.dto.QuizCreationRequest;
 import ua.quiz.models.dto.QuizDto;
+import ua.quiz.models.dto.QuizSearchRequest;
 import ua.quiz.models.mapper.QuizMapper;
 import ua.quiz.service.QuizService;
 
@@ -55,5 +57,12 @@ public class QuizEndpoint {
         final Quiz quiz = quizService.findById(quizId)
                                      .orElseThrow(() -> new QuizNotFoundException(ENTITY_NOT_FOUND_EXCEPTION, quizId));
         return new ResponseEntity<>(quizMapper.toDto(quiz), OK);
+    }
+
+    @PatchMapping(path = "/{id}", consumes = "application/json-patch+json")
+    public ResponseEntity<QuizDto> update(final @PathVariable("id") String id, final @RequestBody JsonPatch jsonPatch) {
+        quizService.update(id, jsonPatch);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                             .build();
     }
 }

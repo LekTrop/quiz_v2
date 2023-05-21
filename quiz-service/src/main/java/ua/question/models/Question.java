@@ -1,5 +1,7 @@
 package ua.question.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
@@ -36,11 +38,13 @@ public class Question extends AbstractDbAuditing {
     @Column(name = "answer_description", nullable = false)
     private String answerDescription;
 
+    @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<>();
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "fk_quiz_id", nullable = false)
     private Quiz quiz;
