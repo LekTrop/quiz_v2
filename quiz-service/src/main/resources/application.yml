@@ -24,3 +24,9 @@ quiz:
   search:
     page:
       size: 9
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *

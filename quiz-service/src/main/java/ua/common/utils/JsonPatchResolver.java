@@ -37,7 +37,7 @@ public abstract class JsonPatchResolver {
     private JsonNode mergeEntities(final JsonPatch patch, final JsonNode jsonNode) {
         try {
             return patch.apply(jsonNode);
-        } catch (JsonPatchException e) {
+        } catch (final JsonPatchException e) {
             throw new QuizBadRequestException(
                     QuizErrorRegister.JSON_PATCH_CANNOT_BE_APPLIED, e.getLocalizedMessage(), patch);
         }
@@ -49,7 +49,7 @@ public abstract class JsonPatchResolver {
 
         try {
             return (T) objectMapper.readValue(patched.toString(), entityClass);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new QuizBadRequestException(
                     QuizErrorRegister.JSON_PATCH_CANNOT_BE_RESTORED,
                     entityClass.getSimpleName(),

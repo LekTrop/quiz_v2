@@ -4,6 +4,8 @@ import com.github.fge.jsonpatch.JsonPatch;
 import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.http.Header;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +32,7 @@ import static ua.exception.QuizErrorRegister.ENTITY_NOT_FOUND_EXCEPTION;
 @RequestMapping("api/v1/quizzes")
 @RequiredArgsConstructor
 @Validated
+@Slf4j
 public class QuizEndpoint {
     @NonNull
     private final QuizService quizService;
@@ -37,10 +40,12 @@ public class QuizEndpoint {
     private final QuizMapper quizMapper;
 
     @PostMapping
-    public ResponseEntity<?> save(final @Valid @RequestBody QuizCreationRequest quizCreationRequest) {
-        quizService.save(quizCreationRequest);
-        return ResponseEntity.status(CREATED)
-                             .build();
+    public ResponseEntity<QuizDto> save(final @Valid @RequestBody QuizCreationRequest quizCreationRequest) {
+        log.info("save.E QuizCreationRequest: {}", quizCreationRequest);
+        final QuizDto savedQuiz = quizMapper.toDto(quizService.save(quizCreationRequest));
+        final var responseEntity = new ResponseEntity<>(savedQuiz, CREATED);
+        log.info("save.X response: {}", responseEntity);
+        return responseEntity;
     }
 
     @GetMapping

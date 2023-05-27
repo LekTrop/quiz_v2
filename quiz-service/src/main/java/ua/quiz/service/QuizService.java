@@ -1,14 +1,12 @@
 package ua.quiz.service;
 
 import com.github.fge.jsonpatch.JsonPatch;
-import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import ua.category.models.domain.Category;
 import ua.category.service.CategoryService;
 import ua.common.utils.JsonPatchResolver;
@@ -48,7 +46,8 @@ public class QuizService {
     @Transactional
     public Quiz save(final QuizCreationRequest quizCreationRequest) {
         final Quiz quiz = quizMapper.toDomain(quizCreationRequest);
-        final Category category = categoryService.findByName(quizCreationRequest.category()).orElseThrow(() -> new QuizNotFoundException(ENTITY_BY_NAME_NOT_FOUND_EXCEPTION, quizCreationRequest.name()));
+        final Category category = categoryService.findByName(quizCreationRequest.category())
+                                                 .orElseThrow(() -> new QuizNotFoundException(ENTITY_BY_NAME_NOT_FOUND_EXCEPTION, quizCreationRequest.category()));
         quiz.setCategory(category);
         quizValidatorFactory.getQuizCreationValidation()
                             .quiz(quiz)
